@@ -1,0 +1,49 @@
+# Dependencies and generated builds
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Local deployment links, secrets and credentials
+.vercel/
+.env
+.env.*
+!.env.example
+!.env.*.example
+.npmrc
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Test output, caches and logs (may contain local paths or fixtures)
+.playwright-results/
+playwright-report/
+test-results/
+coverage/
+.cache/
+.eslintcache
+*.log
+
+# Local exports/backups must never be published with source
+exports/
+backups/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+
+# Editor, OS and scratch files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*.tmp
+*.bak
+.ui-review*.png
+.palette-*.png
