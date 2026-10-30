@@ -242,7 +242,7 @@ test('Ctrl+S prevents browser save and persists the latest note without stale ov
   await expect(page.getByLabel('Nội dung ghi chú')).toHaveText('Separate fixture');
 });
 
-test('blank areas across the app deselect while text and controls remain interactive', async ({ page }) => {
+test('blank areas outside the editor deselect while the entire editor panel keeps selection', async ({ page }) => {
   await page.goto('/');
   await addNote(page, 'Synthetic blank areas', 'Editable fixture');
   const reopen = async () => { await page.locator('.note-card').first().click(); };
@@ -251,14 +251,14 @@ test('blank areas across the app deselect while text and controls remain interac
   await expect(blank).toBeEmpty();
   await reopen();
   await page.locator('.editor-footer').click({ position: { x: 300, y: 15 } });
-  await expect(blank).toBeEmpty();
-  await reopen();
+  await expect(page.getByLabel('Nội dung ghi chú')).toBeVisible();
   const content = page.locator('.note-content');
   const rect = await content.boundingBox();
   if (!rect) throw new Error('Editor missing');
   await content.click({ position: { x: 100, y: rect.height - 20 } });
-  await expect(blank).toBeEmpty();
-  await reopen();
+  await expect(page.getByLabel('Nội dung ghi chú')).toBeVisible();
+  await page.locator('.note-actions').click({ position: { x: 600, y: 15 } });
+  await expect(page.getByLabel('Nội dung ghi chú')).toBeVisible();
   await page.mouse.click(10, 10);
   await expect(blank).toBeEmpty();
   await reopen();

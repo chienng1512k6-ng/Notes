@@ -197,11 +197,9 @@ export default function NotesApp() {
     const deselectOnBlank = (event: PointerEvent) => {
       if (event.button !== 0 || !(event.target instanceof Element)) return;
       const target = event.target;
+      // The entire editor panel is a writing surface, including its blank padding.
+      if (target.closest('.note-panel')) return;
       if (target.closest('button, input, select, textarea, a, label, .color-tool, [role="menu"], [role="separator"]')) return;
-      const editable = target.closest('[contenteditable="true"]');
-      // Text lines (including empty paragraphs) remain available for writing.
-      // Bare padding below/beside the document is a blank-area click.
-      if (editable && target !== editable) return;
       setSelectedId(null);
       setMobileEditor(false);
     };
